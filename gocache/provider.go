@@ -10,12 +10,12 @@ import (
 func Provider() *schema.Provider {
 	return &schema.Provider{
 		Schema: map[string]*schema.Schema{
-			"api_key": {
+			"api_token": {
 				Type:        schema.TypeString,
 				Optional:    true,
 				Sensitive:   true,
 				Description: "The API key for operations.",
-				DefaultFunc: schema.EnvDefaultFunc("GOCACHE_TOKEN", nil),
+				DefaultFunc: schema.EnvDefaultFunc("GOCACHE_API_TOKEN", nil),
 			},
 		},
 		ResourcesMap: map[string]*schema.Resource{
@@ -28,7 +28,7 @@ func Provider() *schema.Provider {
 }
 
 func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}, diag.Diagnostics) {
-	token := d.Get("api_key").(string)
+	token := d.Get("api_token").(string)
 
 	var diags diag.Diagnostics
 
