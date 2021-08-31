@@ -31,8 +31,8 @@ func resourceDomain() *schema.Resource {
 		}
 		auxScheme[ind] = &schema.Schema{
 			Type:     schemeMode,
+			Default:     content.Default,
 			Optional: true,
-			Computed: true,
 		}
 	}
 
@@ -58,12 +58,15 @@ func resourceDomainCreate(ctx context.Context, d *schema.ResourceData, m interfa
 	changes := make(map[string]interface{})
 	for ind, content := range gc.GetAllDomainSettingsAdjusted() {
 		val := d.Get(ind)
+
+		indNew := gc.GetApiSettingName(ind)
+
 		if val != nil {
 			if content.Mode == "boolean" || content.Mode == "int" {
-				changes[ind] = val
+				changes[indNew] = val
 			} else {
 				if val.(string) != "" {
-					changes[ind] = val
+					changes[indNew] = val
 				}
 			}
 		}
@@ -77,7 +80,7 @@ func resourceDomainCreate(ctx context.Context, d *schema.ResourceData, m interfa
 		return diag.FromErr(err)
 	}
 	if resp.HTTPStatusCode == 409 {
-		diags = resourceDomainRead(ctx, d, m)
+		return diag.FromErr(err)
 	} else if resp.HTTPStatusCode == 200 {
 		diags = resourceDomainUpdate(ctx, d, m)
 	} else {
@@ -135,12 +138,15 @@ func resourceDomainUpdate(ctx context.Context, d *schema.ResourceData, m interfa
 	for ind, content := range gc.GetAllDomainSettingsAdjusted() {
 		if d.HasChange(ind) {
 			val := d.Get(ind)
+
+			indNew := gc.GetApiSettingName(ind)
+
 			if val != nil {
 				if content.Mode == "boolean" || content.Mode == "int" {
-					changes[ind] = val
+					changes[indNew] = val
 				} else {
 					if val.(string) != "" {
-						changes[ind] = val
+						changes[indNew] = val
 					}
 				}
 			}

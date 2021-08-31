@@ -25,7 +25,7 @@ resource "gocache_record" "mysubdomain" {
 }
 
 # Create cache, security and routing policies
-resource "gocache_smart_rules_block" "mypolicies" {
+resource "gocache_smart_rules" "mypolicies" {
   # ...
 }
 ```
