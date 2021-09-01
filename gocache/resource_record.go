@@ -165,11 +165,7 @@ func resourceRecordCreate(ctx context.Context, d *schema.ResourceData, m interfa
 
 	rciq := resp.Response.(gc.DNSResult).Records[0]
 
-	diags = append(diags, diag.Diagnostic{
-		Severity: diag.Warning,
-		Summary:  fmt.Sprintf("DE ID: %v -> %v", rciq["record_id"], resp),
-		Detail:   "owo",
-	})
+
 
 	d.SetId(fmt.Sprintf("%v/%v", domain, rciq["record_id"]))
 	d.Set("record_id", fmt.Sprintf("%v", rciq["record_id"]))

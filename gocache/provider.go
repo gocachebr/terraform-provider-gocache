@@ -21,8 +21,11 @@ func Provider() *schema.Provider {
 		ResourcesMap: map[string]*schema.Resource{
 			"gocache_domain": resourceDomain(),
 			"gocache_record": resourceRecord(),
+			"gocache_ssl_certificate": resourceSSL(),
 		},
-		DataSourcesMap:       map[string]*schema.Resource{},
+		DataSourcesMap:       map[string]*schema.Resource{
+			"gocache_ip_ranges": dataSourceIpRanges(),
+		},
 		ConfigureContextFunc: providerConfigure,
 	}
 }
