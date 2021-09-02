@@ -1,6 +1,7 @@
-# 0.2.0 (Unreleased)
+# 0.3.0 (Unreleased)
 
-* **New Resource:** `gocache_smart_rules`
+# 0.2.0 (September 2nd, 2021)
+
 * **New Resource:** `gocache_ssl_certificate`
 * **New Data Source:** `gocache_ip_ranges`
 
