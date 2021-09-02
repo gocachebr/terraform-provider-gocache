@@ -1,5 +1,11 @@
 # 0.3.0 (Unreleased)
 
+# 0.2.1 (September 2nd, 2021)
+
+BUG FIXES:
+* resource/gocache_ssl_certificate: Fixed missing documentation
+* data-source/gocache_ssl_certificate: Fixed missing documentation
+
 # 0.2.0 (September 2nd, 2021)
 
 * **New Resource:** `gocache_ssl_certificate`
