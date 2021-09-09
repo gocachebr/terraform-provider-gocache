@@ -94,7 +94,7 @@ func resourceRecordRead(ctx context.Context, d *schema.ResourceData, m interface
 		return diag.FromErr(errors.New("Mismatched domain/record id"))
 	}
 
-	res, err := c.ListRecords(domain)
+	res, err := c.GetRecord(domain, id)
 
 	if err != nil {
 		return diag.FromErr(err)
@@ -120,10 +120,10 @@ func resourceRecordRead(ctx context.Context, d *schema.ResourceData, m interface
 			if rec["priority"] != nil {
 				d.Set("priority", rec["priority"])
 			}
+			return diags
 		}
 	}
-
-	return diags
+	return diag.FromErr(errors.New(fmt.Sprintf("No `record_id` %s found", id)))	
 }
 
 func resourceRecordCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {

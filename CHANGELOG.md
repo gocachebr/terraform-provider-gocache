@@ -1,12 +1,21 @@
 # 0.3.0 (Unreleased)
 
+# 0.2.2 (September 9th, 2021)
+
+IMPROVEMENTS:
+
+* `resource/gocache_record`: Improvements on scalability for domains with many records
+
 # 0.2.1 (September 2nd, 2021)
 
 BUG FIXES:
+
 * resource/gocache_ssl_certificate: Fixed missing documentation
-* data-source/gocache_ssl_certificate: Fixed missing documentation
+* data-source/gocache_ip_ranges: Fixed missing documentation
 
 # 0.2.0 (September 2nd, 2021)
+
+FEATURES:
 
 * **New Resource:** `gocache_ssl_certificate`
 * **New Data Source:** `gocache_ip_ranges`
