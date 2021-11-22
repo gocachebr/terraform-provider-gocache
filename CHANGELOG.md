@@ -1,5 +1,14 @@
 # 0.4.0 (Unreleased)
 
+# 0.3.1 (November 22th, 2021)
+
+BUG FIXES:
+
+* `resource/gocache_domain_dnssec`: Fixed inexpected bad behaviour
+* `resource/gocache_smart_rules_settings`: Fixed inexpected bad behaviour
+* `resource/gocache_smart_rules_rewrite`: Fixed inexpected bad behaviour
+* `resource/gocache_smart_rules_firewall`: Fixed inexpected bad behaviour
+
 # 0.3.0 (November 22th, 2021)
 
 FEATURES:
@@ -11,7 +20,7 @@ FEATURES:
 
 BUG FIXES:
 
-* resource/gocache_domain: Fixed bad behaviour when adding a domain that already exists
+* `resource/gocache_domain`: Fixed bad behaviour when adding a domain that already exists
 
 # 0.2.2 (September 9th, 2021)
 
@@ -23,8 +32,8 @@ IMPROVEMENTS:
 
 BUG FIXES:
 
-* resource/gocache_ssl_certificate: Fixed missing documentation
-* data-source/gocache_ip_ranges: Fixed missing documentation
+* `resource/gocache_ssl_certificate`: Fixed missing documentation
+* `data-source/gocache_ip_ranges`: Fixed missing documentation
 
 # 0.2.0 (September 2nd, 2021)
 

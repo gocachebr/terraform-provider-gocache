@@ -34,6 +34,8 @@ github.com/gocachebr/gocache-go v0.0.0-20210827180924-022720d24986 h1:bIGXG8ohhM
 github.com/gocachebr/gocache-go v0.0.0-20210827180924-022720d24986/go.mod h1:+YECKM7QKAAGdwvG5nymR2KTodB71RK7xrFFRtStUIw=
 github.com/gocachebr/gocache-go v0.0.0-20210901190416-bc2d0d53e84c h1:bPRfc4y823tosTnIc9iVppK13YVA0uKiB4KjvtpPkrE=
 github.com/gocachebr/gocache-go v0.0.0-20210901190416-bc2d0d53e84c/go.mod h1:+YECKM7QKAAGdwvG5nymR2KTodB71RK7xrFFRtStUIw=
+github.com/gocachebr/gocache-go v0.0.0-20211117173633-49fd5ea12488 h1:UVtahIlzJslsuM6eqc67+KSoex4qULMj9TR6D0KGVik=
+github.com/gocachebr/gocache-go v0.0.0-20211117173633-49fd5ea12488/go.mod h1:+YECKM7QKAAGdwvG5nymR2KTodB71RK7xrFFRtStUIw=
 github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b/go.mod h1:SBH7ygxi8pfUlaOkMMuAQtPIUF8ecWP5IEl/CR7VP2Q=
 github.com/golang/mock v1.1.1/go.mod h1:oTYuIxOrZwtPieC+H1uAHpcLFnEyAGVDL/k47Jfbm0A=
 github.com/golang/mock v1.2.0/go.mod h1:oTYuIxOrZwtPieC+H1uAHpcLFnEyAGVDL/k47Jfbm0A=

@@ -45,7 +45,7 @@ func processRuleRequest(d *schema.ResourceData, i int, fieldType string, ruleTyp
 
 			newKey := gc.GetFieldName(key,fmt.Sprintf("smart_rule_%s",resource))
 
-			if val != nil {
+			if val != nil{
 				changes[newKey] = val
 			}
 		}
@@ -178,12 +178,31 @@ func getSchema(resource string) map[string]*schema.Schema {
 	return newSchema
 }
 
-func createSmartRulesBulk(ctx context.Context, d *schema.ResourceData, m interface{}, ruleType string) diag.Diagnostics {
+func createBulk(ctx context.Context, d *schema.ResourceData, m interface{}, ruleType string, checkExistence bool) diag.Diagnostics{
 	c := m.(*gc.API)
 
 	var diags diag.Diagnostics
 
 	domain := d.Get("domain").(string)
+
+	if checkExistence {
+
+		resp, err := c.GetRules(domain, ruleType)
+
+		if err != nil {
+			return diag.FromErr(err)
+		}
+
+		if resp.HTTPStatusCode == 200 {
+
+			rules := resp.Response.(gc.SmartRuleResult).Rules
+
+			if len(rules) > 0 {
+				return diag.FromErr(fmt.Errorf("Rules already exist"))
+			} 
+
+		}
+	}
 
 	d.SetId(domain)
 
@@ -220,13 +239,16 @@ func createSmartRulesBulk(ctx context.Context, d *schema.ResourceData, m interfa
 	return diags
 }
 
+func createSmartRulesBulk(ctx context.Context, d *schema.ResourceData, m interface{}, ruleType string) diag.Diagnostics {
+	return createBulk(ctx,d,m,ruleType,true);
+}
+
 func readSmartRulesBulk(ctx context.Context, d *schema.ResourceData, m interface{}, ruleType string) diag.Diagnostics {
 	c := m.(*gc.API)
 
 	var diags diag.Diagnostics
 
 	domain := d.Id()
-	// id := d.Get("bulk_id").(int)
 
 	resp, err := c.GetRules(domain, ruleType)
 
@@ -242,7 +264,11 @@ func readSmartRulesBulk(ctx context.Context, d *schema.ResourceData, m interface
 
 		err := d.Set("smart_rule", convert)
 
-		// return diag.FromErr(fmt.Errorf("Convert:%v\n Rules: %v \n D: %v\n Resp: %v",convert, rules,d.Get("smart_rule"), resp))
+		if err != nil {
+			return diag.FromErr(err)
+		}
+
+		err = d.Set("domain", domain)
 
 		if err != nil {
 			return diag.FromErr(err)
@@ -261,7 +287,7 @@ func updateSmartRulesBulk(ctx context.Context, d *schema.ResourceData, m interfa
 	id, ok := d.GetOk("bulk_id")
 
 	if !ok {
-		return createSmartRulesBulk(ctx,d,m,ruleType)
+		return createBulk(ctx,d,m,ruleType,false);
 	}
 
 	domain := d.Get("domain").(string)
