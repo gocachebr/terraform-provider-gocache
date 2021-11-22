@@ -94,8 +94,8 @@ Some fields can use regex patterns. To know more about regex, see the documentat
 * `ssl_mode` - (Optional) The `full` value indicates that when a client sends an https request, GoCache will comunite with origin server on port 443 and the `partial` value indicates all requests sent to origin server by GoCache will be on port 80..
 * `hide_header` - (Optional) Omits a response header informed.
 * `encoding_header` - (Optional) Defines the Accept-Encoding header.
-* `set_request_headers` - (Optional) List of request headers to be added on the upstream request. ou can use variables like `$cookie_NAME` to group cached requests by specific cookie values, `$http_NAME`, to group by specific header values, `$geoip2_data_country_code` to group by request's country and `$geoip2_data_continent_code` to group by request's continent.
-* `set_response_headers` - (Optional) List of response headers to be added on the response.
+* `set_request_headers` - (Optional) Map object of request headers to be added on the upstream request, where header names are the keys. You can use variables like `$cookie_NAME` to group cached requests by specific cookie values, `$http_NAME`, to group by specific header values, `$geoip2_data_country_code` to group by request's country and `$geoip2_data_continent_code` to group by request's continent.
+* `set_response_headers` - (Optional) Map object of response headers to be added on the response, where header names are the keys.
 * `signed_url_key` - (Optional) Defines a signed URL key to request S3 protected assets.
 * `signed_url_type` - (Optional) Defines a signed URL type to request S3 protected assets. Possible values `s3qs`, `off`
 * `cache_301` - (Optional) Defines if responses with status 301 will be cache.

@@ -79,14 +79,20 @@ func resourceDomainCreate(ctx context.Context, d *schema.ResourceData, m interfa
 	if resp == nil {
 		return diag.FromErr(err)
 	}
-	if resp.HTTPStatusCode == 200 {
+	if resp.HTTPStatusCode == 409 {
+		getResp, err := c.GetDomain(domain)
+		if resp == nil {
+			return diag.FromErr(err)
+		}
+		if getResp.HTTPStatusCode == 404{
+			return diag.FromErr(fmt.Errorf("%s",resp.Msg))
+		}else{
+			return diags
+		}
+	}else if resp.HTTPStatusCode == 200 {
 		diags = resourceDomainUpdate(ctx, d, m)
 	} else {
-		if err != nil {
-			return diag.FromErr(err)
-		}else {
-			return diag.FromErr(fmt.Errorf("%d %s",resp.HTTPStatusCode,resp.Msg))
-		}
+		return diag.FromErr(err)
 	}
 
 	d.Set("last_updated", time.Now().Format(time.RFC850))
@@ -113,7 +119,7 @@ func resourceDomainRead(ctx context.Context, d *schema.ResourceData, m interface
 
 		d.Set("domain", domain)
 		for ind, val := range vals {
-			if gc.FieldExists(ind,"domain_reversed") {
+			if gc.FieldExists(ind,"domain") {
 				if err := d.Set(ind, val); err != nil {
 					diags = append(diags, diag.Diagnostic{
 						Severity: diag.Warning,
@@ -123,8 +129,6 @@ func resourceDomainRead(ctx context.Context, d *schema.ResourceData, m interface
 				}
 			}
 		}
-	}else {
-		return diag.FromErr(fmt.Errorf("Status Code: %d Msg: %s",resp.HTTPStatusCode,resp.Msg))
 	}
 
 	return diags

@@ -20,12 +20,8 @@ func Provider() *schema.Provider {
 		},
 		ResourcesMap: map[string]*schema.Resource{
 			"gocache_domain": resourceDomain(),
-			"gocache_domain_dnssec": resourceDNSSEC(),
 			"gocache_record": resourceRecord(),
 			"gocache_ssl_certificate": resourceSSL(),
-			"gocache_smart_rules_settings": resourceSmartRulesSettings(),
-			"gocache_smart_rules_rewrite": resourceSmartRulesRewrite(),
-			"gocache_smart_rules_firewall": resourceSmartRulesFirewall(),
 		},
 		DataSourcesMap:       map[string]*schema.Resource{
 			"gocache_ip_ranges": dataSourceIpRanges(),

@@ -1,4 +1,17 @@
-# 0.3.0 (Unreleased)
+# 0.4.0 (Unreleased)
+
+# 0.3.0 (November 22th, 2021)
+
+FEATURES:
+
+* **New Resource:** `gocache_domain_dnssec`
+* **New Resource:** `gocache_smart_rules_settings` ([#1](https://github.com/gocachebr/terraform-provider-gocache/issues/1))
+* **New Resource:** `gocache_smart_rules_rewrite` ([#1](https://github.com/gocachebr/terraform-provider-gocache/issues/1))
+* **New Resource:** `gocache_smart_rules_firewall` ([#1](https://github.com/gocachebr/terraform-provider-gocache/issues/1))
+
+BUG FIXES:
+
+* resource/gocache_domain: Fixed bad behaviour when adding a domain that already exists
 
 # 0.2.2 (September 9th, 2021)
 
