@@ -32,10 +32,8 @@ github.com/fatih/color v1.7.0/go.mod h1:Zm6kSWBoL9eyXnKyktHP6abPY2pDugNf5Kwzbycv
 github.com/go-test/deep v1.0.3/go.mod h1:wGDj63lr65AM2AQyKZd/NYHGb0R+1RLqB8NKt3aSFNA=
 github.com/gocachebr/gocache-go v0.0.0-20210827180924-022720d24986 h1:bIGXG8ohhMSF7P4CwXGKXjpZYF4VwCHP4fDKa0Ugyb8=
 github.com/gocachebr/gocache-go v0.0.0-20210827180924-022720d24986/go.mod h1:+YECKM7QKAAGdwvG5nymR2KTodB71RK7xrFFRtStUIw=
-github.com/gocachebr/gocache-go v0.0.0-20210830233514-acf3d4186d2a h1:7mVQihHB3snkO8WSljojPix9G6gtCZWpaatf00PiHWY=
-github.com/gocachebr/gocache-go v0.0.0-20210830233514-acf3d4186d2a/go.mod h1:+YECKM7QKAAGdwvG5nymR2KTodB71RK7xrFFRtStUIw=
-github.com/gocachebr/gocache-go v0.0.0-20210909181053-25ff5c68d11c h1:6U6WqKUWJDgf4hq1iZbHmojcBwMhvd+dgOuOkpOP404=
-github.com/gocachebr/gocache-go v0.0.0-20210909181053-25ff5c68d11c/go.mod h1:+YECKM7QKAAGdwvG5nymR2KTodB71RK7xrFFRtStUIw=
+github.com/gocachebr/gocache-go v0.0.0-20210901190416-bc2d0d53e84c h1:bPRfc4y823tosTnIc9iVppK13YVA0uKiB4KjvtpPkrE=
+github.com/gocachebr/gocache-go v0.0.0-20210901190416-bc2d0d53e84c/go.mod h1:+YECKM7QKAAGdwvG5nymR2KTodB71RK7xrFFRtStUIw=
 github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b/go.mod h1:SBH7ygxi8pfUlaOkMMuAQtPIUF8ecWP5IEl/CR7VP2Q=
 github.com/golang/mock v1.1.1/go.mod h1:oTYuIxOrZwtPieC+H1uAHpcLFnEyAGVDL/k47Jfbm0A=
 github.com/golang/mock v1.2.0/go.mod h1:oTYuIxOrZwtPieC+H1uAHpcLFnEyAGVDL/k47Jfbm0A=

@@ -22,7 +22,7 @@ func resourceDomain() *schema.Resource {
 			Computed: true,
 		},
 	}
-	for ind, content := range gc.GetAllDomainSettingsAdjusted() {
+	for ind, content := range gc.GetAllFieldsAdjusted("domain") {
 		schemeMode := schema.TypeString
 		if content.Mode == "boolean" {
 			schemeMode = schema.TypeBool
@@ -56,10 +56,10 @@ func resourceDomainCreate(ctx context.Context, d *schema.ResourceData, m interfa
 	domain := d.Get("domain").(string)
 
 	changes := make(map[string]interface{})
-	for ind, content := range gc.GetAllDomainSettingsAdjusted() {
+	for ind, content := range gc.GetAllFieldsAdjusted("domain") {
 		val := d.Get(ind)
 
-		indNew := gc.GetApiSettingName(ind)
+		indNew := gc.GetFieldName(ind,"domain")
 
 		if val != nil {
 			if content.Mode == "boolean" || content.Mode == "int" {
@@ -80,8 +80,16 @@ func resourceDomainCreate(ctx context.Context, d *schema.ResourceData, m interfa
 		return diag.FromErr(err)
 	}
 	if resp.HTTPStatusCode == 409 {
-		return diag.FromErr(err)
-	} else if resp.HTTPStatusCode == 200 {
+		getResp, err := c.GetDomain(domain)
+		if resp == nil {
+			return diag.FromErr(err)
+		}
+		if getResp.HTTPStatusCode == 404{
+			return diag.FromErr(fmt.Errorf("%s",resp.Msg))
+		}else{
+			return diags
+		}
+	}else if resp.HTTPStatusCode == 200 {
 		diags = resourceDomainUpdate(ctx, d, m)
 	} else {
 		return diag.FromErr(err)
@@ -106,17 +114,19 @@ func resourceDomainRead(ctx context.Context, d *schema.ResourceData, m interface
 		return diag.FromErr(err)
 	}
 
-	vals := resp.Response.(map[string]interface{})
+	if resp.HTTPStatusCode == 200 {
+		vals := resp.Response.(map[string]interface{})
 
-	d.Set("domain", domain)
-	for ind, val := range vals {
-		if gc.IsDomainField(ind) {
-			if err := d.Set(ind, val); err != nil {
-				diags = append(diags, diag.Diagnostic{
-					Severity: diag.Warning,
-					Summary:  fmt.Sprintf("Invalid type: %v", ind),
-					Detail:   err.Error(),
-				})
+		d.Set("domain", domain)
+		for ind, val := range vals {
+			if gc.FieldExists(ind,"domain") {
+				if err := d.Set(ind, val); err != nil {
+					diags = append(diags, diag.Diagnostic{
+						Severity: diag.Warning,
+						Summary:  fmt.Sprintf("Invalid type: %v", ind),
+						Detail:   err.Error(),
+					})
+				}
 			}
 		}
 	}
@@ -135,11 +145,11 @@ func resourceDomainUpdate(ctx context.Context, d *schema.ResourceData, m interfa
 
 	changes := make(map[string]interface{})
 
-	for ind, content := range gc.GetAllDomainSettingsAdjusted() {
+	for ind, content := range gc.GetAllFieldsAdjusted("domain") {
 		if d.HasChange(ind) {
 			val := d.Get(ind)
 
-			indNew := gc.GetApiSettingName(ind)
+			indNew := gc.GetFieldName(ind,"domain")
 
 			if val != nil {
 				if content.Mode == "boolean" || content.Mode == "int" {

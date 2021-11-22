@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "gocache" {
-  api_key = "5e28d7603418957c"
+  # token pulled from $GOCACHE_API_TOKEN
 }
 
 resource "gocache_domain" "example" {
