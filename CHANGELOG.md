@@ -1,5 +1,11 @@
 # 0.4.0 (Unreleased)
 
+# 0.3.2 (February 08th, 2022)
+
+BUG FIXES:
+
+* `resource/gocache_record`: Fixed inexpected bad behaviour ([#4](https://github.com/gocachebr/terraform-provider-gocache/issues/4))
+
 # 0.3.1 (November 22th, 2021)
 
 BUG FIXES:
