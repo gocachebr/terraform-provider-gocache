@@ -100,28 +100,26 @@ func resourceRecordRead(ctx context.Context, d *schema.ResourceData, m interface
 		return diag.FromErr(err)
 	}
 
-	rc := res.Response.(gc.DNSResult).Records
-	for _, rec := range rc {
-		if rec["record_id"] == id {
-			d.Set("name", rec["name"])
-			d.Set("type", rec["type"])
-			d.Set("proxied", rec["cloud"])
-			d.Set("ttl", rec["ttl"])
-			d.Set("content", rec["content"])
-			d.Set("type", rec["type"])
-			d.Set("record_id", id)
-			d.Set("domain", domain)
-			if rec["port"] != nil {
-				d.Set("port", rec["port"])
-			}
-			if rec["weight"] != nil {
-				d.Set("weight", rec["weight"])
-			}
-			if rec["priority"] != nil {
-				d.Set("priority", rec["priority"])
-			}
-			return diags
+	rec := res.Response.(gc.DNSGetResult).Records
+	if rec["record_id"] == id {
+		d.Set("name", rec["name"])
+		d.Set("type", rec["type"])
+		d.Set("proxied", rec["cloud"])
+		d.Set("ttl", rec["ttl"])
+		d.Set("content", rec["content"])
+		d.Set("type", rec["type"])
+		d.Set("record_id", id)
+		d.Set("domain", domain)
+		if rec["port"] != nil {
+			d.Set("port", rec["port"])
 		}
+		if rec["weight"] != nil {
+			d.Set("weight", rec["weight"])
+		}
+		if rec["priority"] != nil {
+			d.Set("priority", rec["priority"])
+		}
+		return diags
 	}
 	return diag.FromErr(errors.New(fmt.Sprintf("No `record_id` %s found", id)))	
 }
