@@ -31,7 +31,7 @@ func resourceDomain() *schema.Resource {
 		}
 		auxScheme[ind] = &schema.Schema{
 			Type:     schemeMode,
-			Default:     content.Default,
+			Default:  content.Default,
 			Optional: true,
 		}
 	}
@@ -43,8 +43,8 @@ func resourceDomain() *schema.Resource {
 		DeleteContext: resourceDomainDelete,
 		Schema:        auxScheme,
 		Importer: &schema.ResourceImporter{
-	      StateContext: schema.ImportStatePassthroughContext,
-	    },
+			StateContext: schema.ImportStatePassthroughContext,
+		},
 	}
 }
 
@@ -59,7 +59,7 @@ func resourceDomainCreate(ctx context.Context, d *schema.ResourceData, m interfa
 	for ind, content := range gc.GetAllFieldsAdjusted("domain") {
 		val := d.Get(ind)
 
-		indNew := gc.GetFieldName(ind,"domain")
+		indNew := gc.GetFieldName(ind, "domain")
 
 		if val != nil {
 			if content.Mode == "boolean" || content.Mode == "int" {
@@ -83,8 +83,8 @@ func resourceDomainCreate(ctx context.Context, d *schema.ResourceData, m interfa
 	} else {
 		if err != nil {
 			return diag.FromErr(err)
-		}else {
-			return diag.FromErr(fmt.Errorf("%d %s",resp.HTTPStatusCode,resp.Msg))
+		} else {
+			return diag.FromErr(fmt.Errorf("%d %s", resp.HTTPStatusCode, resp.Msg))
 		}
 	}
 
@@ -112,8 +112,8 @@ func resourceDomainRead(ctx context.Context, d *schema.ResourceData, m interface
 
 		d.Set("domain", domain)
 		for ind, val := range vals {
-			newKey := gc.GetFieldName(ind,"domain_reversed")
-			if gc.FieldExists(newKey,"domain") {
+			newKey := gc.GetFieldName(ind, "domain_reversed")
+			if gc.FieldExists(newKey, "domain") {
 				if err := d.Set(newKey, val); err != nil {
 					diags = append(diags, diag.Diagnostic{
 						Severity: diag.Warning,
@@ -123,8 +123,8 @@ func resourceDomainRead(ctx context.Context, d *schema.ResourceData, m interface
 				}
 			}
 		}
-	}else {
-		return diag.FromErr(fmt.Errorf("Status Code: %d Msg: %s",resp.HTTPStatusCode,resp.Msg))
+	} else {
+		return diag.FromErr(fmt.Errorf("Status Code: %d Msg: %s", resp.HTTPStatusCode, resp.Msg))
 	}
 
 	return diags
@@ -145,7 +145,7 @@ func resourceDomainUpdate(ctx context.Context, d *schema.ResourceData, m interfa
 		if d.HasChange(ind) {
 			val := d.Get(ind)
 
-			indNew := gc.GetFieldName(ind,"domain")
+			indNew := gc.GetFieldName(ind, "domain")
 
 			if val != nil {
 				if content.Mode == "boolean" || content.Mode == "int" {

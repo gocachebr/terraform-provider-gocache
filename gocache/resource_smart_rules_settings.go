@@ -64,17 +64,17 @@ func resourceSmartRulesSettings() *schema.Resource {
 }
 
 func resourceSmartRulesSettingsCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	return createSmartRulesBulk(ctx,d,m,"settings")
+	return createSmartRulesBulk(ctx, d, m, "settings")
 }
 
 func resourceSmartRulesSettingsRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	return readSmartRulesBulk(ctx,d,m,"settings")
+	return readSmartRulesBulk(ctx, d, m, "settings")
 }
 
 func resourceSmartRulesSettingsUpdate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	return updateSmartRulesBulk(ctx,d,m,"settings")
+	return updateSmartRulesBulk(ctx, d, m, "settings")
 }
 
 func resourceSmartRulesSettingsDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	return deleteSmartRulesBulk(ctx,d,m,"settings")
+	return deleteSmartRulesBulk(ctx, d, m, "settings")
 }

@@ -7,8 +7,8 @@ import (
 	gc "github.com/gocachebr/gocache-go"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"time"
 	"strings"
+	"time"
 )
 
 func resourceRecord() *schema.Resource {
@@ -71,8 +71,8 @@ func resourceRecord() *schema.Resource {
 		DeleteContext: resourceRecordDelete,
 		Schema:        auxScheme,
 		Importer: &schema.ResourceImporter{
-	      StateContext: schema.ImportStatePassthroughContext,
-	    },
+			StateContext: schema.ImportStatePassthroughContext,
+		},
 	}
 }
 
@@ -83,14 +83,13 @@ func resourceRecordRead(ctx context.Context, d *schema.ResourceData, m interface
 	var diags diag.Diagnostics
 	domain := d.Get("domain").(string)
 
-
 	s := strings.Split(d.Id(), "/")
 
 	id := s[1]
-	if (domain == ""){
+	if domain == "" {
 		domain = s[0]
 	}
-	if (domain != s[0]){
+	if domain != s[0] {
 		return diag.FromErr(errors.New("Mismatched domain/record id"))
 	}
 
@@ -121,7 +120,7 @@ func resourceRecordRead(ctx context.Context, d *schema.ResourceData, m interface
 		}
 		return diags
 	}
-	return diag.FromErr(errors.New(fmt.Sprintf("No `record_id` %s found", id)))	
+	return diag.FromErr(errors.New(fmt.Sprintf("No `record_id` %s found", id)))
 }
 
 func resourceRecordCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
@@ -162,8 +161,6 @@ func resourceRecordCreate(ctx context.Context, d *schema.ResourceData, m interfa
 	}
 
 	rciq := resp.Response.(gc.DNSResult).Records[0]
-
-
 
 	d.SetId(fmt.Sprintf("%v/%v", domain, rciq["record_id"]))
 	d.Set("record_id", fmt.Sprintf("%v", rciq["record_id"]))

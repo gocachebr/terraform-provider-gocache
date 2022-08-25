@@ -6,10 +6,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-func resourceSmartRulesFirewall() *schema.Resource {
-	matchSchema := getSchema("smart_rule_match")
-	actionSchema := getSchema("smart_rule_firewall_action")
-	metadataSchema := getSchema("smart_rule_metadata")
+func resourceRateLimit() *schema.Resource {
+	matchSchema := getSchema("smart_rule_ratelimit_match")
+	metadataSchema := getSchema("smart_rule_ratelimit_metadata")
+	actionSchema := getSchema("smart_rule_ratelimit_action")
 
 	auxScheme := map[string]*schema.Schema{
 		"domain": &schema.Schema{
@@ -52,10 +52,10 @@ func resourceSmartRulesFirewall() *schema.Resource {
 	}
 
 	return &schema.Resource{
-		CreateContext: resourceSmartRulesFirewallCreate,
-		ReadContext:   resourceSmartRulesFirewallRead,
-		UpdateContext: resourceSmartRulesFirewallUpdate,
-		DeleteContext: resourceSmartRulesFirewallDelete,
+		CreateContext: resourceRateLimitCreate,
+		ReadContext:   resourceRateLimitRead,
+		UpdateContext: resourceRateLimitUpdate,
+		DeleteContext: resourceRateLimitDelete,
 		Schema:        auxScheme,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
@@ -63,18 +63,18 @@ func resourceSmartRulesFirewall() *schema.Resource {
 	}
 }
 
-func resourceSmartRulesFirewallCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	return createSmartRulesBulk(ctx, d, m, "firewall")
+func resourceRateLimitCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
+	return createSmartRulesBulk(ctx, d, m, "ratelimit")
 }
 
-func resourceSmartRulesFirewallRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	return readSmartRulesBulk(ctx, d, m, "firewall")
+func resourceRateLimitRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
+	return readSmartRulesBulk(ctx, d, m, "ratelimit")
 }
 
-func resourceSmartRulesFirewallUpdate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	return updateSmartRulesBulk(ctx, d, m, "firewall")
+func resourceRateLimitUpdate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
+	return updateSmartRulesBulk(ctx, d, m, "ratelimit")
 }
 
-func resourceSmartRulesFirewallDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	return deleteSmartRulesBulk(ctx, d, m, "firewall")
+func resourceRateLimitDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
+	return deleteSmartRulesBulk(ctx, d, m, "ratelimit")
 }

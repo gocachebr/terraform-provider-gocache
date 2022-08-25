@@ -54,8 +54,8 @@ func resourceDNSSEC() *schema.Resource {
 		DeleteContext: resourceDNSSECDelete,
 		Schema:        auxScheme,
 		Importer: &schema.ResourceImporter{
-	      StateContext: schema.ImportStatePassthroughContext,
-	    },
+			StateContext: schema.ImportStatePassthroughContext,
+		},
 	}
 }
 
@@ -80,29 +80,29 @@ func resourceDNSSECCreate(ctx context.Context, d *schema.ResourceData, m interfa
 		d.Set("domain", domain)
 		for ind, val := range vals {
 			if ind == "digest_type" {
-				digest_type := strings.Split(val.(string)," ")
+				digest_type := strings.Split(val.(string), " ")
 				num, err := strconv.Atoi(digest_type[0])
 				if err != nil {
 					diags = append(diags, diag.Diagnostic{
 						Severity: diag.Warning,
-						Summary:  fmt.Sprintf("Cannot convert string to int , param:%v val:%v",ind,val),
+						Summary:  fmt.Sprintf("Cannot convert string to int , param:%v val:%v", ind, val),
 						Detail:   err.Error(),
 					})
 				}
-				d.Set("digest_type",num)
-				d.Set("digest_type_name",digest_type[1])
+				d.Set("digest_type", num)
+				d.Set("digest_type_name", digest_type[1])
 			} else if ind == "algorithm" || ind == "key_tag" {
 				num, err := strconv.Atoi(val.(string))
 				if err != nil {
 					diags = append(diags, diag.Diagnostic{
 						Severity: diag.Warning,
-						Summary:  fmt.Sprintf("Cannot convert string to int , param:%v val:%v",ind,val),
+						Summary:  fmt.Sprintf("Cannot convert string to int , param:%v val:%v", ind, val),
 						Detail:   err.Error(),
 					})
 				}
-				d.Set(ind,num)
-			}else{
-				d.Set(ind,val)
+				d.Set(ind, num)
+			} else {
+				d.Set(ind, val)
 			}
 		}
 	}
@@ -124,36 +124,35 @@ func resourceDNSSECRead(ctx context.Context, d *schema.ResourceData, m interface
 		return diag.FromErr(err)
 	}
 
-
 	if resp.HTTPStatusCode == 200 {
 		vals := resp.Response.(map[string]interface{})
 
 		d.Set("domain", domain)
 		for ind, val := range vals {
 			if ind == "digest_type" {
-				digest_type := strings.Split(val.(string)," ")
+				digest_type := strings.Split(val.(string), " ")
 				num, err := strconv.Atoi(digest_type[0])
 				if err != nil {
 					diags = append(diags, diag.Diagnostic{
 						Severity: diag.Warning,
-						Summary:  fmt.Sprintf("Cannot convert string to int , param:%v val:%v",ind,val),
+						Summary:  fmt.Sprintf("Cannot convert string to int , param:%v val:%v", ind, val),
 						Detail:   err.Error(),
 					})
 				}
-				d.Set("digest_type",num)
-				d.Set("digest_type_name",digest_type[1])
+				d.Set("digest_type", num)
+				d.Set("digest_type_name", digest_type[1])
 			} else if ind == "algorithm" || ind == "key_tag" {
 				num, err := strconv.Atoi(val.(string))
 				if err != nil {
 					diags = append(diags, diag.Diagnostic{
 						Severity: diag.Warning,
-						Summary:  fmt.Sprintf("Cannot convert string to int , param:%v val:%v",ind,val),
+						Summary:  fmt.Sprintf("Cannot convert string to int , param:%v val:%v", ind, val),
 						Detail:   err.Error(),
 					})
 				}
-				d.Set(ind,num)
-			}else{
-				d.Set(ind,val)
+				d.Set(ind, num)
+			} else {
+				d.Set(ind, val)
 			}
 		}
 	}
@@ -176,8 +175,8 @@ func resourceDNSSECDelete(ctx context.Context, d *schema.ResourceData, m interfa
 
 	if err != nil {
 		return diag.FromErr(err)
-	}else if resp.HTTPStatusCode == 428 {
-		return diag.FromErr(fmt.Errorf("%s",resp.Msg))
+	} else if resp.HTTPStatusCode == 428 {
+		return diag.FromErr(fmt.Errorf("%s", resp.Msg))
 	}
 
 	return diags

@@ -4,7 +4,7 @@ This resource enables DNSSEC for a domain using GoCache name servers, and export
 
 ## Example Usage
 
-Here is an example of a custom certificate configuration
+Here is an example of a DNSSEC configuration
 
 ```hcl
 resource "gocache_domain" "example" {

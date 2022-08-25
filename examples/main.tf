@@ -48,3 +48,79 @@ resource "gocache_record" "bolo" {
 output "example_output"{
   value = gocache_domain.example 
 }
+
+
+resource "gocache_smart_rules_settings" "mypolicies" {
+  domain = gocache_domain.example.domain
+
+  smart_rule {
+    match {
+      http_version = [ "HTTP/1.0", "HTTP/1.1" ]
+    }
+
+    action {
+      set_uri = "/invalid"
+    }
+    metadata {
+      status = true
+    } 
+  }
+
+  smart_rule {
+    match {
+      request_uri = "/api/*"
+    }
+
+    action {
+      cache_mode = "full"
+      set_request_headers = {"from-api":"1"}
+    }
+
+    metadata {
+      status = true
+    } 
+  }
+
+}
+
+
+resource "gocache_smart_rules_rewrite" "rewrite" {
+  domain = gocache_domain.example.domain
+
+  smart_rule {
+    match {
+      request_uri = "/test2"
+    }
+
+    action {
+      redirect_type = "301"
+      redirect_to = "/index.html"
+    }
+
+    metadata {
+      status = true
+    } 
+  }
+}
+
+resource "gocache_smart_rules_ratelimit" "limiting" {
+  domain = gocache_domain.example.domain
+
+  smart_rule {
+    match {
+      request_uri = "/api/*"
+    }
+
+    action {
+      rate_limit_action = "block"
+      rate_limit_block_ttl = 86400
+      rate_limit_amount = 100
+      rate_limit_period = 86400
+    }
+
+    metadata {
+      status = true
+      name = "blocking api"
+    } 
+  }
+}
