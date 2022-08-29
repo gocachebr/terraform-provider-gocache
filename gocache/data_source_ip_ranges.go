@@ -1,11 +1,11 @@
 package gocache
 
 import (
-	"strconv"
 	"context"
 	gc "github.com/gocachebr/gocache-go"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"strconv"
 	"time"
 )
 
@@ -13,14 +13,14 @@ func dataSourceIpRanges() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceIpRangesRead,
 		Schema: map[string]*schema.Schema{
-			"ipv4_cidr_blocks":{
+			"ipv4_cidr_blocks": {
 				Type:     schema.TypeList,
 				Optional: true,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
 				},
 			},
-			"cidr_blocks":{
+			"cidr_blocks": {
 				Type:     schema.TypeList,
 				Computed: true,
 				Elem: &schema.Schema{
@@ -42,7 +42,6 @@ func dataSourceIpRangesRead(ctx context.Context, d *schema.ResourceData, m inter
 	if err != nil {
 		return diag.FromErr(err)
 	}
-
 
 	d.Set("ipv4_cidr_blocks", resp)
 	d.Set("cidr_blocks", resp)

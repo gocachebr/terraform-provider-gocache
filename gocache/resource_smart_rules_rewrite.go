@@ -64,17 +64,17 @@ func resourceSmartRulesRewrite() *schema.Resource {
 }
 
 func resourceSmartRulesRewriteCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	return createSmartRulesBulk(ctx,d,m,"rewrite")
+	return createSmartRulesBulk(ctx, d, m, "rewrite")
 }
 
 func resourceSmartRulesRewriteRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	return readSmartRulesBulk(ctx,d,m,"rewrite")
+	return readSmartRulesBulk(ctx, d, m, "rewrite")
 }
 
 func resourceSmartRulesRewriteUpdate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	return updateSmartRulesBulk(ctx,d,m,"rewrite")
+	return updateSmartRulesBulk(ctx, d, m, "rewrite")
 }
 
 func resourceSmartRulesRewriteDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	return deleteSmartRulesBulk(ctx,d,m,"rewrite")
+	return deleteSmartRulesBulk(ctx, d, m, "rewrite")
 }

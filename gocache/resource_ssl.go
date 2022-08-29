@@ -6,9 +6,8 @@ import (
 	gc "github.com/gocachebr/gocache-go"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"time"
 	"strings"
-
+	"time"
 )
 
 func resourceSSL() *schema.Resource {
@@ -64,12 +63,12 @@ func resourceSSLRead(ctx context.Context, d *schema.ResourceData, m interface{})
 	if err != nil {
 		return diag.FromErr(err)
 	}
-	
+
 	certData := res.Response.(gc.CertificateResult)
 
 	hasCustom := false
 	for _, cert := range certData.Certificates {
-		if (cert["type"] == "custom"){
+		if cert["type"] == "custom" {
 			hasCustom = true
 			d.Set("enabled", cert["enabled"])
 			d.Set("domain", domain)
@@ -80,15 +79,13 @@ func resourceSSLRead(ctx context.Context, d *schema.ResourceData, m interface{})
 			break
 		}
 	}
-	
+
 	if !hasCustom {
 		return diag.FromErr(fmt.Errorf("No certificates installed"))
 	}
-	
-	
+
 	return diags
 }
-
 
 func resourceSSLCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	// Warning or errors can be collected in a slice type
@@ -105,17 +102,17 @@ func resourceSSLCreate(ctx context.Context, d *schema.ResourceData, m interface{
 	if err != nil {
 		return diag.FromErr(err)
 	}
-	
+
 	certData := res.Response.(gc.CertificateResult)
 
 	hasCustom := false
 	for _, cert := range certData.Certificates {
-		if (cert["type"] == "custom"){
+		if cert["type"] == "custom" {
 			hasCustom = true
 			d.SetId(fmt.Sprintf("%v/%v", domain, cert["cn"]))
-			if (enabled){
+			if enabled {
 				c.ActivateCertificate(domain, "custom", true)
-			}else{
+			} else {
 				c.ActivateCertificate(domain, "auto", true)
 			}
 			d.Set("enabled", enabled)
