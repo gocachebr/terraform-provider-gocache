@@ -1,4 +1,10 @@
-# 0.4.0 (Unreleased)
+# 0.5.0 (Unreleased)
+
+# 0.4.0 (February 08th, 2022)
+
+FEATURES:
+
+* **New Resource:** `gocache_smart_rules_ratelimit` 
 
 # 0.3.2 (February 08th, 2022)
 
